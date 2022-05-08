@@ -1,0 +1,73 @@
+menu "Wifi Configuration"
+
+    config WIFI_SSID
+        string "WiFi SSID"
+        default "myssid"
+        help
+            SSID (network name) for the example to connect to.
+
+    menu "Security"
+        choice
+            prompt "WiFi Security"
+            default CONNECT_WIFI_WPA_WPA2_PSK
+            config CONNECT_WIFI_WPA_WPA2_PSK
+                bool "WPA/WPA2 PSK"
+            config CONNECT_WIFI_WPA_WPA2_ENTERPRISE
+                bool "WPA/WPA2 Enterprise"
+        endchoice
+        
+        if CONNECT_WIFI_WPA_WPA2_PSK
+            
+            config WIFI_PASSWORD
+                string "WiFi Password"
+                default "mypassword"
+                help
+                    WiFi password (WPA or WPA2) for the example to use.
+                    Can be left blank if the network has no security set.
+        endif
+
+        if CONNECT_WIFI_WPA_WPA2_ENTERPRISE 
+
+            choice
+                prompt "Phase2 method for TTLS"
+                default EAP_METHOD_TTLS_PHASE2_MSCHAPV2
+                config EAP_METHOD_TTLS_PHASE2_MSCHAPV2
+                    bool "MSCHAPV2"
+                config EAP_METHOD_TTLS_PHASE2_MSCHAP
+                    bool "MSCHAP"
+                config EAP_METHOD_TTLS_PHASE2_PAP
+                    bool "PAP"
+                config EAP_METHOD_TTLS_PHASE2_CHAP
+                    bool "CHAP"
+            endchoice
+
+            config EAP_METHOD_TTLS_PHASE_2
+                int
+                default 1 if EAP_METHOD_TTLS_PHASE2_MSCHAPV2
+                default 2 if EAP_METHOD_TTLS_PHASE2_MSCHAP
+                default 3 if EAP_METHOD_TTLS_PHASE2_PAP
+                default 4 if EAP_METHOD_TTLS_PHASE2_CHAP
+
+            config EAP_ID
+                string "EAP ID"
+                default "example@espressif.com"
+                help
+                    Identity in phase 1 of EAP procedure.
+
+            config EAP_USERNAME
+                string "EAP USERNAME"
+                default "espressif"
+                help
+                    Username for EAP method (PEAP and TTLS).
+
+            config EAP_PASSWORD
+                string "EAP PASSWORD"
+                default "test11"
+                help
+                    Password for EAP method (PEAP and TTLS).
+        
+        endif
+
+    endmenu
+
+endmenu
