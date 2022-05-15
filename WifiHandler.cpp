@@ -18,11 +18,12 @@
 #include "lwip/err.h"
 #include "lwip/sys.h"
 
+#include "WifiHandler.hpp"
 
-#define WIFI_SSID WIFI_SSID
-#define EAP_ID EAP_ID
-#define EAP_USERNAME EAP_USERNAME
-#define EAP_PASSWORD EAP_PASSWORD
+#define WIFI_SSID CONFIG_WIFI_SSID
+#define EAP_ID CONFIG_EAP_ID
+#define EAP_USERNAME CONFIG_EAP_USERNAME
+#define EAP_PASSWORD CONFIG_EAP_PASSWORD
 
 #define NR_OF_IP_ADDRESSES_TO_WAIT_FOR (s_active_interfaces)
 #define WIFI_SCAN_METHOD WIFI_ALL_CHANNEL_SCAN

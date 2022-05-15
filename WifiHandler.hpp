@@ -1,5 +1,5 @@
 #pragma once
 
-#include "WifiHandler.cpp"
+int initialise_wifi(void);
 
-
+int deactivate_wifi(void);
